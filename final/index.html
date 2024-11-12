@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Entry</title>
+    <link rel="stylesheet" href="./assest/index.css">
+</head>
+<body>
+    <form action="#">
+        <div class="container">
+            <div class="colomn">
+                <div class="form-input">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Name" >
+                </div>
+
+                <div class="form-input">
+                    <label for="dob">DOB</label>
+                    <input type="date" id="dob" onchange="mouseLeave()">
+                </div>
+
+                <div class="form-input">
+                    <label for="class">Class</label>
+                    <select name="" id="selectbox">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <button>submit</button>
+            </div>
+
+            <div class="colomn">
+                <div class="form-input">
+                    <label for="role">Role</label>
+                    <input type="text" id="role" placeholder="Role">
+                </div>
+
+                <div class="form-input">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" placeholder="Age" readonly>
+                </div>
+
+                <div class="form-input radio-input">
+                    <label>Gender</label>
+                    <div class="radio">
+                        <input type="radio" name="gender" id="gender" value="male" required>
+                        <label for="male">Male</label>
+                        <input type="radio" name="gender" id="gender" value="female" required>
+                        <label for="female">Female</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="colomn">
+                <div class="form-input">
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="Email" id="email">
+                </div>
+
+                <div class="form-input">
+                    <label for="textarea">Write About Yourself</label>
+                    <textarea name="" id="textarea"></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="table">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>Role</td>
+                    <td>Email</td>
+                    <td>Dob</td>
+                    <td>Age</td>
+                    <td>Gender</td>
+                    <td>Class</td>
+                    <td>Detail</td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+<script src="./assest/dom-js.js"></script>
+</html>

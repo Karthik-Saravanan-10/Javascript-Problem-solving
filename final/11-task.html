@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic form</title>
+    <link rel="stylesheet" href="./assest/11-task.css">
+</head>
+<body>
+    <form action="#">
+        <div class="container">
+            <div class="form-input">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Name" >
+            </div>
+            <div class="form-input">
+                <label for="role">Role</label>
+                <input type="text" id="role" placeholder="Role" >
+            </div>
+            <div class="form-input">
+                <label for="dob">DOB</label>
+                <input type="date" id="dob" onchange="mouseLeave()">
+            </div>
+            <div class="form-input">
+                <label for="age">Age</label>
+                <input type="number" id="age" placeholder="Age" readonly>
+            </div>
+            <div class="form-input">
+                <label for="email">Email</label>
+                <input type="email" placeholder="Email" id="email">
+            </div>  
+            <div class="addForm">
+                <button type="button" class="disabled">+</button>
+            </div>
+        </div>
+        <div class="addDivContainer">
+            
+        </div>
+        <div class="btnValid">
+            <button type="submit">submit</button>
+        </div>
+    </form>
+</body>
+<script src="./assest/11-task.js"></script>
+</html>
