@@ -1,171 +1,81 @@
 let form = document.querySelector("form");
-let buttonValue = document.querySelector(".btnValid");
-let addFormbtn = document.querySelector(".addForm button");
-let userName = document.getElementById("name");
-let role = document.getElementById("role");
-let email = document.getElementById("email");
-let dob = document.querySelector("#dob");
-let age = document.getElementById("age");
-let array=[];
+let table = document.querySelector("table");
+let name = document.getElementsByClassName("name");
+let email = document.getElementsByClassName("email");
+let role = document.getElementsByClassName("role");
+let addbtn = document.getElementsByClassName("addbtn");
+let array = [];
+let count = 0;
 
 form.addEventListener("input", (e) => {
     e.preventDefault();
-    console.log(e.target)
-    switch (e.target.id) {
-        case "name":
-            checkName();
-            break;
-        case "role":
-            checkRole();
-            break;
-        case "email":
-            checkEmail();
-            break;
-        case "dob":
-            checkDob();
-            break;
-        default:
-            console.log("nothing")
-    }
-
-    let formVali=(checkName()=="")&&(checkRole()=="")&&(checkEmail()=="")&&(checkDob()=="");
-    let formValid=(checkName()=="")||(checkRole()=="")||(checkEmail()=="")||(checkDob()=="");
-    if(!formValid){
-        addFormbutton();
+    addbtn[count].addEventListener("click", (e) => { e.preventDefault() });
+    if (validation(count)) {
+        addbtn[count].classList.remove("disabled");
+        addbtn[count].setAttribute("onclick", "dynamicForm()");
+        // array.push(name[count].value);
+        // array.push(role[count].value);
+        // array.push(email[count].value);
+        name[count].setAttribute("value", name[count].value)
+        role[count].setAttribute("value", role[count].value)
+        email[count].setAttribute("value", email[count].value)
     }
 })
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    let formVali=(checkName()=="")&&(checkRole()=="")&&(checkEmail()=="")&&(checkDob()=="");
-    let formValid=(checkName()=="")||(checkRole()=="")||(checkEmail()=="")||(checkDob()=="");
-    if(!formValid){
-        array[count];
-        form.reset();
-        console.log("inn");
-    }else{
-        alert("Fill the All Fields")
+    let out = document.querySelector(".output");
+    let input = document.querySelectorAll("input");
+    let isNull = false;
+    for (let i = 0; i < ((count + 1) * 3); i++) {
+        if (input[i].value == "") {
+            isNull = true
+        } else {
+            isNull = false;
+        }
+    }
+    if (!isNull) {
+        alert("Completed");
+        // addTableData();
+        array.forEach((elem) => {
+            out.innerHTML += `${elem}`
+        })
+    } else {
+        alert("Fill Everything")
     }
 })
 
-function checkName() {
-    if (userName.value == "") {
-        showErr(userName);
+function validation(count) {
+    if ((name[count].value == "") || (email[count].value == "") || (role[count].value == "")) {
+        return false
     } else {
-        showOut(userName);
-    }
-
-    return userName.value
-}
-
-function checkRole() {
-    if (role.value == "") {
-        showErr(role);
-    } else {
-        showOut(role);
-    }
-
-    return role.value
-}
-
-function checkEmail() {
-    if (email.value == "") {
-        showErr(email);
-    } else {
-        showOut(email);
-    }
-
-    return email.value
-}
-
-function checkDob() {
-    if (dob.value == "") {
-        showErr(dob);
-    } else {
-        showOut(dob);
-    }
-
-    return dob.value
-}
-
-function showErr(input) {
-    let formInput = input;
-    formInput.classList.add("error");
-    formInput.classList.remove("show");
-}
-
-function showOut(input) {
-    let formInput = input;
-    formInput.classList.remove("error");
-    formInput.classList.add("show");
-}
-
-function addFormbutton() {
-    addFormbtn.classList.remove("disabled");
-    addFormbtn.setAttribute("onclick", "onAddclick()");
-}
-
-//DOB Validation
-
-function dateOfBirth() {
-    let PresentDate = new Date();
-    let getdateData = new Date(dob.value.split("-"));
-    let ageValue = PresentDate - getdateData;
-    let yr = 1000 * 60 * 60 * 24 * 365;
-    // console.log(ageValue/yr)
-    let getAge = Math.floor(ageValue / yr);
-    // console.log(getAge)
-    if (getAge >= 0) {
-        return getAge;
-    } else {
-        alert("Enter Correct Date Of Birth");
-        form.reset();
+        return true
     }
 }
 
-function mouseLeave() {
-    age.value = dateOfBirth();
-}
-
-//dynamic form add
-function onAddclick() {
-    let addDivContainer = document.querySelector(".addDivContainer");
-    let dynamicDiv = document.createElement("div");
-    dynamicDiv.setAttribute("class", "container");
-    addDivContainer.appendChild(dynamicDiv);
-    dynamicDiv.innerHTML = `
-                <div class="form-input">
+function dynamicForm() {
+    array.push(name[count].value);
+    array.push(role[count].value);
+    array.push(email[count].value);
+    console.log(array);
+    addbtn[count].style.display = "none";
+    count = count + 1;
+    let container = document.getElementsByClassName("input-container")[0];
+    container.innerHTML += `
+    <div class="input">
                 <label for="name">Name</label>
-                <input type="text" id="name" placeholder="Name" required>
-            </div>
-            <div class="form-input">
+                <input type="text" id="name" class="name">
                 <label for="role">Role</label>
-                <input type="text" id="role" placeholder="Role" required>
-            </div>
-            <div class="form-input">
-                <label for="dob">DOB</label>
-                <input type="date" id="dob" onchange="mouseLeave()">
-            </div>
-            <div class="form-input">
-                <label for="age">Age</label>
-                <input type="number" id="age" placeholder="Age" readonly>
-            </div>
-            <div class="form-input">
+                <input type="text" id="role" class="role">
                 <label for="email">Email</label>
-                <input type="email" placeholder="Email" id="email">
-            </div>  
-            <div class="addForm">
-                <button type="button" class="disabled">+</button>
-            </div>
-        `;
+                <input type="email" id="email" class="email">
+                <button type="button" class="addbtn disabled">Add</button>
+            </div>`;
 }
 
-function add() {
-    let addDivContainer = document.querySelector(".addDivContainer");
-    let formAddBtnDiv = document.createElement("div");
-    let formAddBtn = document.createElement("button");
-    formAddBtn.innerHTML = "+";
-    formAddBtnDiv.appendChild(formAddBtn);
-    addDivContainer.appendChild(formAddBtnDiv);
-    formAddBtn.setAttribute("onclick", "onAddclick()");
+function addTableData() {
+    let tr = table.insertRow[1];
+    array.forEach((elem) => {
+        tr.innerHTML += `${elem}`
+    })
 }

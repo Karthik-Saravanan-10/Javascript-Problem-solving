@@ -3,26 +3,34 @@ let userName = document.getElementById("name");
 let role = document.getElementById("role");
 let email = document.getElementById("email");
 let dob = document.getElementById("dob");
-let gender = document.getElementById("gender");
+let gender = document.getElementById("male");
+let gender2 = document.getElementById("female");
 let selectBox = document.getElementById("selectbox");
 let details = document.querySelector("textarea");
 let age = document.getElementById("age");
-const array=[];
-let count=0;
+let table = document.querySelector("table");
+let radioClass = document.querySelector(".radio");
+let Emailpattern=/[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+let Namepattern=/[a-zA-Z]$/;
+const array = [];
+let count = 0;
+let i = 1;
 
 function checkName() {
     if (userName.value == "") {
-        showErr(userName);
-    } else {
+        showErr(userName, "Fill the Name");
+    }else if(!(Namepattern.test(userName.value))){
+        showErr(userName, "Enter only Alphabets");
+    }  
+    else {
         showOut(userName);
+        return userName.value
     }
-
-    return userName.value
 }
 
 function checkRole() {
     if (role.value == "") {
-        showErr(role);
+        showErr(role, "Fill the Role");
     } else {
         showOut(role);
     }
@@ -32,22 +40,38 @@ function checkRole() {
 
 function checkEmail() {
     if (email.value == "") {
-        showErr(email);
-    } else {
-        showOut(email);
+        showErr(email, "Fill the Email");
     }
-
-    return email.value
+    else if(!(Emailpattern.test(email.value))){
+        showErr(email, "Enter valid email");
+    } 
+    else {
+        showOut(email);
+        return email.value
+    }
 }
 
 function checkDob() {
     if (dob.value == "") {
-        showErr(dob);
+        showErr(dob, "Fill the DateOfBirth");
     } else {
         showOut(dob);
     }
 
     return dob.value
+}
+function checkGender() {
+    if ((gender.checked == false) && (gender2.checked == false)) {
+        radioClass.nextElementSibling.style.display = "block";
+        radioClass.nextElementSibling.innerHTML = "Select the Gender";
+    } else {
+        radioClass.nextElementSibling.style.display = "none";
+        if (gender.checked == true) {
+            return gender.value
+        } else {
+            return gender2.value
+        }
+    }
 }
 
 function dateOfBirth() {
@@ -72,28 +96,31 @@ function mouseLeave() {
 
 function checkDetail() {
     if (details.value == "") {
-        showErr(details);
-    } else if ((details.value.length > 10) && (details.value.length < 200)) {
-        showOut(details);
-        alert("should be more than 10 words and less than 200 words")
+        showErr(details, "Fill the About Yourself");
+    } else if (((details.value.length < 10) || (details.value.length > 200))) {
+        showErr(details, "should be more than 10 words and less than 200 words");
     }
     else {
         showOut(details);
+        return details.value;
     }
-
-    return details.value
+    // console.log(details.value.length)
 }
 
-function showErr(input) {
+function showErr(input, str) {
     let formInput = input;
+    let strValue = str;
     formInput.classList.add("error");
     formInput.classList.remove("show");
+    formInput.nextElementSibling.style.display = "block";
+    formInput.nextElementSibling.innerHTML = `${strValue}`;
 }
 
 function showOut(input) {
     let formInput = input;
     formInput.classList.remove("error");
     formInput.classList.add("show");
+    formInput.nextElementSibling.style.display = "none";
 }
 
 //form insert
@@ -111,10 +138,10 @@ function insertData() {
 
     cell1.innerHTML = checkName();
     cell2.innerHTML = checkRole();
-    cell3.innerHTML =checkEmail();
+    cell3.innerHTML = checkEmail();
     cell4.innerHTML = checkDob();
     cell5.innerHTML = dateOfBirth();
-    cell6.innerHTML = gender.value;
+    cell6.innerHTML = checkGender();
     cell7.innerHTML = selectBox.value;
     cell8.innerHTML = checkDetail();
 }
@@ -125,7 +152,7 @@ function insertData() {
 
 form.addEventListener("input", (e) => {
     e.preventDefault();
-    console.log(e.target)
+    // console.log(e.target)
     switch (e.target.id) {
         case "name":
             checkName();
@@ -142,6 +169,9 @@ form.addEventListener("input", (e) => {
         case "textarea":
             checkDetail();
             break;
+        case "male":
+            checkGender();
+            break;
         default:
             console.log(e.target.id)
     }
@@ -149,34 +179,52 @@ form.addEventListener("input", (e) => {
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    let formVali=(checkName()=="")&&(checkRole()=="")&&(checkEmail()=="")&&(checkDob()=="")&&(checkDetail()=="");
-    let formValid=(checkName()=="")||(checkRole()=="")||(checkEmail()=="")||(checkDob()=="")||(checkDetail()=="");
-    if(!formValid){
+    console.log(vskForm())
+    //let formVali = (checkName() == "") && (checkRole() == "") && (checkEmail() == "") && (checkDob() == "") && (checkGender() == undefined) && (checkDetail() == "");
+    //let formValid = (checkName() == "") || (checkRole() == "") || (checkEmail() == "") || (checkDob() == "") || (checkGender() == undefined) || (checkDetail() == "");
+    if (!vskForm()) {
         insertData();
         insertElementArray();
         form.reset();
-        console.log("inn",array)
-    }else{
-        alert("Fill the All Fields")
+        console.log("inn", array)
+    } else {
+        alert("Fill the All Fields With Perferct Pattern");
     }
-    console.log("out",array)
+    console.log("out", array)
 })
 
-function insertElementArray(){
+function insertElementArray() {
     let arrName = checkName();
     let arrRole = checkRole();
-    let arrmail =checkEmail();
+    let arrmail = checkEmail();
     let arrdob = checkDob();
     let arrage = dateOfBirth();
-    let arrgender = gender.value;
+    let arrgender = checkGender();
     let arrclass = selectBox.value;
     let arrdetail = checkDetail();
 
-    array[count]=[arrName,arrRole,arrmail,arrdob,arrage,arrgender,arrclass,arrdetail];
+    array[count] = [arrName, arrRole, arrmail, arrdob, arrage, arrgender, arrclass, arrdetail];
 
-    console.log("Before",count,array[count])
+    console.log("Before", count, array[count])
 
-    count=count+1;
+    count = count + 1;
 
-    console.log("After",count)
+    console.log("After", count)
+}
+
+// let resetForm=document.getElementById("reset");
+// resetForm.addEventListener("click",()=>{
+//     console.log("reset");
+// })
+
+
+function vskForm(){
+    let vsk=((checkName() == "")||(checkName() == undefined))||
+    ((checkRole() == ""))||
+    ((checkEmail() == "")||(checkEmail() == undefined))||
+    ((checkDob() == ""))||
+    ((checkName() == undefined))||
+    ((checkDetail() == "")||(checkDetail() == undefined));
+
+    return vsk;
 }

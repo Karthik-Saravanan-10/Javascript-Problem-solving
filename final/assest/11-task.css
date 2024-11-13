@@ -3,49 +3,26 @@
     src: url(./Poppins-Regular.ttf);
 }
 
-body{
-    width: 100%;
-    font-family: poppins;
-    margin: 0;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-form{
-    display: inline-flex;
-    flex-direction: column;
-    border: 1px solid black;
-    padding: 15px;
-    gap: 10px;
-    margin: 30px 10%;
-    border-radius: 10px;
-}
-
+body,
 .container{
+    width: 100%;
+    margin: 0;
+}
+form{
+    width: 60%;
+    box-sizing: border-box;
+    margin:2% 20%;
+}
+
+.input{
     display: flex;
     align-items: center;
-    gap: 25px;
-    padding: 5px;
-}
-
-.addForm{
-    margin-top: 13px;
-}
-
-
-.form-input{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-bottom: 15px;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 input{
-    border: 1px solid #BDBDBD;
-    height: 30px;
-    border-radius: 4px;
-    padding:10px ;
-    box-sizing: border-box;
+    padding: 5px;
 }
 
 button{
@@ -56,7 +33,7 @@ button{
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
-}
+}       
 
 .disabled{
     border: none;
@@ -66,12 +43,4 @@ button{
     padding: 5px 10px;
     border-radius: 8px;
     font-size: 16px;
-}
-
-.show{
-    border: 1px solid black;
-}
-
-.error{
-    border: 2px solid red;
 }

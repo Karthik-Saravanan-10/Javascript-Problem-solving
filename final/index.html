@@ -12,11 +12,13 @@
                 <div class="form-input">
                     <label for="name">Name</label>
                     <input type="text" id="name" placeholder="Name" >
+                    <p class="indicator"></p>
                 </div>
 
                 <div class="form-input">
                     <label for="dob">DOB</label>
                     <input type="date" id="dob" onchange="mouseLeave()">
+                    <p class="indicator"></p>
                 </div>
 
                 <div class="form-input">
@@ -36,40 +38,48 @@
                         <option value="12">12</option>
                     </select>
                 </div>
-                <button>submit</button>
+                <div>
+                    <button type="submit">submit</button>
+                    <!-- <button type="button" id="reset">Reset</button> -->
+                </div>
             </div>
 
             <div class="colomn">
                 <div class="form-input">
                     <label for="role">Role</label>
                     <input type="text" id="role" placeholder="Role">
+                    <p class="indicator"></p>
                 </div>
 
                 <div class="form-input">
                     <label for="age">Age</label>
-                    <input type="number" id="age" placeholder="Age" readonly>
+                    <input type="number" id="age" placeholder="Age">
+                    <p class="indicator"></p>
                 </div>
 
                 <div class="form-input radio-input">
                     <label>Gender</label>
                     <div class="radio">
-                        <input type="radio" name="gender" id="gender" value="male" required>
+                        <input type="radio" name="gender" id="male" value="male">
                         <label for="male">Male</label>
-                        <input type="radio" name="gender" id="gender" value="female" required>
-                        <label for="female">Female</label>
+                        <input type="radio" name="gender" id="female" value="female">
+                        <label for="female">Female</label><br>
                     </div>
+                    <p class="indicator"></p>
                 </div>
             </div>
 
             <div class="colomn">
                 <div class="form-input">
                     <label for="email">Email</label>
-                    <input type="email" placeholder="Email" id="email">
+                    <input type="text" placeholder="Email" id="email">
+                    <p class="indicator"></p>
                 </div>
 
                 <div class="form-input">
                     <label for="textarea">Write About Yourself</label>
                     <textarea name="" id="textarea"></textarea>
+                    <p class="indicator"></p>
                 </div>
             </div>
         </div>
