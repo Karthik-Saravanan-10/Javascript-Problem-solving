@@ -219,12 +219,13 @@ function insertElementArray() {
 
 
 function vskForm(){
-    let vsk=((checkName() == "")||(checkName() == undefined))||
-    ((checkRole() == ""))||
-    ((checkEmail() == "")||(checkEmail() == undefined))||
-    ((checkDob() == ""))||
-    ((checkName() == undefined))||
-    ((checkDetail() == "")||(checkDetail() == undefined));
+    let vs=((checkName() == "")||(checkName() == undefined))&&((checkRole() == ""))&&
+    ((checkEmail() == "")||(checkEmail() == undefined))&&((checkDob() == ""))&&
+    ((checkDob() == undefined))&&((checkDetail() == "")||(checkDetail() == undefined))&&(checkGender()==undefined);
+
+    let vsk=((checkDetail() == "")||(checkDetail() == undefined))||(checkGender()==undefined)||
+    ((checkName() == "")||(checkName() == undefined))||((checkRole() == ""))||
+    ((checkEmail() == "")||(checkEmail() == undefined))||((checkDob() == ""));
 
     return vsk;
 }
