@@ -11,6 +11,8 @@ let addbtn = document.getElementsByClassName("addbtn");
 let details = document.getElementsByClassName("textarea");
 let submitBtn = document.getElementById("submit");
 let table = document.querySelector("table");
+let Emailpattern = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+let Namepattern=/[a-zA-Z]$/;
 let dataArray = [];
 let count = 0;
 
@@ -18,6 +20,8 @@ form.addEventListener("input", (e) => {
     e.preventDefault();
     addbtn[count].addEventListener("click", (e) => { e.preventDefault() });
     console.log(dataArray);
+    // console.log("hii",details[count].value.length >10)
+    // console.log(details[count].value.length)
     if (!vskForm(count)) {
         addbtn[count].classList.remove("disabled");
         addbtn[count].setAttribute("onclick", "dynamicForm()");
@@ -27,22 +31,21 @@ form.addEventListener("input", (e) => {
         dob[count].setAttribute("value", dob[count].value);
         age[count].setAttribute("value", age[count].value);
         details[count].innerHTML = details[count].value;
-        dataArray.push(name[count].value);
-        dataArray.push(role[count].value);
-        dataArray.push(email[count].value);
-        dataArray.push(dob[count].value);
-        dataArray.push(age[count].value);
-        dataArray.push(details[count].value);
-        dataArray.push(selectBox[count].value);
-        dataArray.push(checkGender(count));
-        submitBtn.classList.remove("disabled");
+        dataPush(count);
+        submitBtn.style.display = "block";
     }
 })
 
+
+
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    insertDataTable(dataArray);
-    dataArray=[];
+    if (!vskForm(count)) {
+        insertDataTable(dataArray);
+        dataArray = [];
+    } else {
+        alert("Fill all form")
+    }
 })
 
 function vskForm(count) {
@@ -51,10 +54,97 @@ function vskForm(count) {
         ((email[count].value == "") || (email[count].value == undefined)) ||
         ((dob[count].value == "")) ||
         ((age[count].value == undefined)) ||
-        ((details[count].value == "") || (details[count].value == undefined)) ||
+        ((details[count].value == "") || (details[count].value == undefined) || (details[count].value.length < 10)) ||
         ((checkGender(count) == "") || (checkGender(count) == undefined));
 
     return vsk;
+}
+
+function dateOfBirth(count) {
+    let PresentDate = new Date();
+    let getdateData = new Date(dob[count].value.split("-"));
+    let ageValue = PresentDate - getdateData;
+    let yr = 1000 * 60 * 60 * 24 * 365;
+    // console.log(ageValue/yr)
+    let getAge = Math.floor(ageValue / yr);
+    // console.log(getAge)
+    if (getAge >= 0) {
+        return getAge;
+    } else {
+        alert("Enter Correct Date Of Birth");
+        form.reset();
+    }
+}
+
+function mouseLeave() {
+    age[count].value = dateOfBirth(count);
+}
+
+function dataPush(count) {
+    dataArray.push(name[count].value);
+    dataArray.push(role[count].value);
+    dataArray.push(email[count].value);
+    dataArray.push(dob[count].value);
+    dataArray.push(age[count].value);
+    dataArray.push(checkGender(count));
+    dataArray.push(selectBox[count].value);
+    dataArray.push(details[count].value);
+}
+
+function checkName(val) {
+    if (val.value == "" || val.value == undefined) {
+        val.nextElementSibling.style.display = "block";
+        val.nextElementSibling.innerHTML = "Fill the Form";
+    }else if(!(Namepattern.test(val.value))){
+        val.nextElementSibling.style.display = "block";
+        val.nextElementSibling.innerHTML = "Use only Alphabets";
+    }
+    else {
+        val.nextElementSibling.style.display = "none";
+        val.nextElementSibling.innerHTML = "";
+    }
+    console.log(Namepattern.test(val.value))
+}
+
+function checkRole(val) {
+    if (val.value == "" || val.value == undefined) {
+        val.nextElementSibling.style.display = "block";
+        val.nextElementSibling.innerHTML = "Fill the Form";
+    }else {
+        val.nextElementSibling.style.display = "none";
+        val.nextElementSibling.innerHTML = "";
+    }
+    console.log(Namepattern.test(val.value))
+}
+
+function checkEmail(val) {
+    if (val.value == "") {
+        val.nextElementSibling.style.display = "block";
+        val.nextElementSibling.innerHTML = "Fill the Form";
+    }
+    else if (!(Emailpattern.test(val.value))) {
+        val.nextElementSibling.style.display = "block";
+        val.nextElementSibling.innerHTML = "Invalid Pattern";
+    }
+    else {
+        val.nextElementSibling.style.display = "none";
+        val.nextElementSibling.innerHTML = "";
+    }
+}
+
+function checkDetail(val) {
+    if (val.value == "") {
+        val.nextElementSibling.style.display = "block";
+        val.nextElementSibling.innerHTML = "Fill the About Yourself";
+    } else if (((val.value.length < 10) || (val.value.length > 200))) {
+        val.nextElementSibling.style.display = "block";
+        val.nextElementSibling.innerHTML = "should be more than 10 words and less than 200 words";
+    }
+    else {
+        val.nextElementSibling.style.display = "none";
+        val.nextElementSibling.innerHTML = "";
+    }
+    // console.log(details.value.length)
 }
 
 function checkGender(count) {
@@ -76,13 +166,13 @@ function dynamicForm() {
                 <div class="colomn">
                     <div class="form-input">
                         <label for="name">Name</label>
-                        <input type="text" id="name" class="name" placeholder="Name" >
+                        <input type="text" id="name" class="name" placeholder="Name" oninput="checkName(this)">
                         <p class="indicator"></p>
                     </div>
     
                     <div class="form-input">
                         <label for="dob">DOB</label>
-                        <input type="date" id="dob" class="dob">
+                        <input type="date" id="dob" class="dob" oninput="checkRole(this)" onchange="mouseLeave()">
                         <p class="indicator"></p>
                     </div>
     
@@ -112,13 +202,13 @@ function dynamicForm() {
                 <div class="colomn">
                     <div class="form-input">
                         <label for="role">Role</label>
-                        <input type="text" id="role" class="role" placeholder="Role">
+                        <input type="text" id="role" class="role" placeholder="Role" oninput="checkRole(this)">
                         <p class="indicator"></p>
                     </div>
     
                     <div class="form-input">
                         <label for="age">Age</label>
-                        <input type="number" id="age" class="age" placeholder="Age">
+                        <input type="number" id="age" class="age" placeholder="Age" oninput="checkRole(this)">
                         <p class="indicator"></p>
                     </div>
     
@@ -137,13 +227,13 @@ function dynamicForm() {
                 <div class="colomn">
                     <div class="form-input">
                         <label for="email">Email</label>
-                        <input type="text" placeholder="Email" class="email" id="email">
+                        <input type="text" placeholder="Email" class="email" id="email" oninput="checkEmail(this)">
                         <p class="indicator"></p>
                     </div>
     
                     <div class="form-input">
                         <label for="textarea">Write About Yourself</label>
-                        <textarea name="" id="textarea" class="textarea"></textarea>
+                        <textarea name="" id="textarea" class="textarea" oninput="checkDetail(this)"></textarea>
                         <p class="indicator"></p>
                     </div>
                 </div>
@@ -151,6 +241,7 @@ function dynamicForm() {
 }
 
 function insertDataTable(array) {
+    table.style.display = "table";
     let arr = array;
     for (let i = 0; i < arr.length; i++) {
         if (i % 9 == 0) {

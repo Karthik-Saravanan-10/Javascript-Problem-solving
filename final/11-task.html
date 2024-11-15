@@ -29,13 +29,13 @@
                 <div class="colomn">
                     <div class="form-input">
                         <label for="name">Name</label>
-                        <input type="text" id="name" class="name" placeholder="Name" >
+                        <input type="text" id="name" class="name" placeholder="Name" oninput="checkName(this)">
                         <p class="indicator"></p>
                     </div>
     
                     <div class="form-input">
                         <label for="dob">DOB</label>
-                        <input type="date" id="dob" class="dob">
+                        <input type="date" id="dob" class="dob" oninput="checkRole(this)" onchange="mouseLeave()">
                         <p class="indicator"></p>
                     </div>
     
@@ -65,13 +65,13 @@
                 <div class="colomn">
                     <div class="form-input">
                         <label for="role">Role</label>
-                        <input type="text" id="role" class="role" placeholder="Role">
+                        <input type="text" id="role" class="role" placeholder="Role" oninput="checkRole(this)">
                         <p class="indicator"></p>
                     </div>
     
                     <div class="form-input">
                         <label for="age">Age</label>
-                        <input type="number" id="age" class="age" placeholder="Age">
+                        <input type="number" id="age" class="age" placeholder="Age" oninput="checkRole(this)">
                         <p class="indicator"></p>
                     </div>
     
@@ -90,13 +90,13 @@
                 <div class="colomn">
                     <div class="form-input">
                         <label for="email">Email</label>
-                        <input type="text" placeholder="Email" class="email" id="email">
+                        <input type="text" placeholder="Email" class="email" id="email" oninput="checkEmail(this)">
                         <p class="indicator"></p>
                     </div>
     
                     <div class="form-input">
                         <label for="textarea">Write About Yourself</label>
-                        <textarea name="" id="textarea" class="textarea"></textarea>
+                        <textarea name="" id="textarea" class="textarea" oninput="checkDetail(this)"></textarea>
                         <p class="indicator"></p>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
             <div class="input-container">
 
             </div>
-            <button type="submit" id="submit" class="disabled">submit</button>
+            <button type="submit" id="submit" style="display: none ;">submit</button>
         </form>
     </div>
 </body>
