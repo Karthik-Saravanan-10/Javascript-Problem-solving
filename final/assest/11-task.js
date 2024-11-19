@@ -25,12 +25,12 @@ form.addEventListener("input", (e) => {
     if (!vskForm(count)) {
         addbtn[count].classList.remove("disabled");
         addbtn[count].setAttribute("onclick", "dynamicForm()");
-        name[count].setAttribute("value", name[count].value);
-        role[count].setAttribute("value", role[count].value);
-        email[count].setAttribute("value", email[count].value);
-        dob[count].setAttribute("value", dob[count].value);
-        age[count].setAttribute("value", age[count].value);
-        details[count].innerHTML = details[count].value;
+        // name[count].setAttribute("value", name[count].value);
+        // role[count].setAttribute("value", role[count].value);
+        // email[count].setAttribute("value", email[count].value);
+        // dob[count].setAttribute("value", dob[count].value);
+        // age[count].setAttribute("value", age[count].value);
+        // details[count].innerHTML = details[count].value;
         dataPush(count);
         submitBtn.style.display = "block";
     }
@@ -43,12 +43,18 @@ form.addEventListener("submit", (e) => {
     if (!vskForm(count)) {
         insertDataTable(dataArray);
         dataArray = [];
+        form.reset();
+        addbtn[count].classList.add("disabled");
+        addbtn[count].removeAttribute("onclick", "dynamicForm()");
+        // let container = document.getElementsByClassName("input-container")[0];
+        // container.innerHTML= "";
+        // console.log("hey")
     } else {
         alert("Fill all form")
     }
 })
 
-function vskForm(count) {
+function vskForm(count) {   
     let vsk = ((name[count].value == "") || (name[count].value == undefined)) ||
         ((role[count].value == "")) ||
         ((email[count].value == "") || (email[count].value == undefined)) ||
@@ -62,6 +68,7 @@ function vskForm(count) {
 
 function dateOfBirth(count) {
     let PresentDate = new Date();
+    // console.log(PresentDate)
     let getdateData = new Date(dob[count].value.split("-"));
     let ageValue = PresentDate - getdateData;
     let yr = 1000 * 60 * 60 * 24 * 365;
@@ -69,10 +76,12 @@ function dateOfBirth(count) {
     let getAge = Math.floor(ageValue / yr);
     // console.log(getAge)
     if (getAge >= 0) {
+        // dob[count].nextElementSibling.style.display="none";
         return getAge;
     } else {
-        alert("Enter Correct Date Of Birth");
-        form.reset();
+        console.log(dob[count].nextElementSibling)
+        dob[count].nextElementSibling.style.display="block";
+        dob[count].nextElementSibling.innerHTML="Don't Enter Future value";
     }
 }
 
@@ -103,7 +112,7 @@ function checkName(val) {
         val.nextElementSibling.style.display = "none";
         val.nextElementSibling.innerHTML = "";
     }
-    console.log(Namepattern.test(val.value))
+    // console.log(Namepattern.test(val.value))
 }
 
 function checkRole(val) {
@@ -114,7 +123,7 @@ function checkRole(val) {
         val.nextElementSibling.style.display = "none";
         val.nextElementSibling.innerHTML = "";
     }
-    console.log(Namepattern.test(val.value))
+    // console.log(Namepattern.test(val.value))
 }
 
 function checkEmail(val) {
@@ -244,7 +253,8 @@ function insertDataTable(array) {
     table.style.display = "table";
     let arr = array;
     for (let i = 0; i < arr.length; i++) {
-        if (i % 9 == 0) {
+        console.log(array[i])
+        if (i % 8 == 0) {
             let tr = table.insertRow(1);
             tr.insertCell(0).innerHTML = `${array[i]}`;
             tr.insertCell(1).innerHTML = `${array[i + 1]}`;

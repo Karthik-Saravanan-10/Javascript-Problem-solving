@@ -1,3 +1,8 @@
+// Given a string, reverse all the words which have odd length. The even length words are not changed.
+
+// 	Ex: reverseOdd("Make sure uoy only esrever sdrow of ddo length")
+// ➞ "Make sure you only reverse words of odd length"
+
 function reverseOdd(str){
     let string=str;
     let clone=[];

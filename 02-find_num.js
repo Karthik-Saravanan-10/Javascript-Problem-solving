@@ -1,3 +1,7 @@
+// Find the Missing Number in an Array	
+// Input: [1, 2, 4, 6, 3, 7, 8]
+// Output: 5
+
 const arr=[1, 2, 4, 6, 3, 7, 8];
 let missValue;
 arr.sort((a,b)=>{

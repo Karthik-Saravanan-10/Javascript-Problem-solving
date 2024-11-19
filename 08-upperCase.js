@@ -1,3 +1,6 @@
+// Write a function that inserts a white space between every instance of a lower character followed immediately by an upper character.	
+// 	Ex: insertWhitespace("TheGreatestUpsetInHistory") ➞ "The Greatest Upset In History"
+
 function insertWhitespace(str){
     let string=str;
     let char=[];

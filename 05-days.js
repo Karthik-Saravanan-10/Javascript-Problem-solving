@@ -1,3 +1,6 @@
+// How Many Days Between Two Dates
+// getDays( new Date("June 14, 2019"), new Date("June 20, 2019") ) ➞ 6
+
 let day1=new Date("June 14, 2019");
 let day2=new Date("June 20, 2019");
 let ms=day2-day1;

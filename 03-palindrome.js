@@ -1,3 +1,7 @@
+// Check if a String is a Palindrome
+// Input: "racecar"
+// Output: true
+
 let str = "racecar";
 let strArray = str.split("");
 const reverseArray = str.split("").reverse();

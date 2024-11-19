@@ -1,3 +1,7 @@
+// Find the First Non-Repeating Character in a String 
+// 		Input: "geeksforgeeks"
+// 		Output: "f"
+
 let str = "geeksforgeeks";
 let char;
 for (let i = 0; i < str.length; i++) {

@@ -1,3 +1,10 @@
+// Create a function which counts how many lone 1s appear in a given number. 
+//Lone means the number doesn't appear twice or more in a row.
+// 	countLoneOnes(101) ➞ 2
+// countLoneOnes(1191) ➞ 1
+// countLoneOnes(1111) ➞ 0
+// countLoneOnes(462) ➞ 0
+
 function countLoneOnes(val){
     let value=val.toString();
     let arr_value=value.split("");
