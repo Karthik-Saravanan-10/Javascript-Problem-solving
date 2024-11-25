@@ -18,8 +18,8 @@ let count = 0;
 
 form.addEventListener("input", (e) => {
     e.preventDefault();
-    addbtn[count].addEventListener("click", (e) => { e.preventDefault() });
-    console.log(dataArray);
+    //addbtn[count].addEventListener("click", (e) => { e.preventDefault() });
+    //1-console.log(dataArray);
     // console.log("hii",details[count].value.length >10)
     // console.log(details[count].value.length)
     if (!vskForm(count)) {
@@ -46,9 +46,12 @@ form.addEventListener("submit", (e) => {
         form.reset();
         addbtn[count].classList.add("disabled");
         addbtn[count].removeAttribute("onclick", "dynamicForm()");
-        // let container = document.getElementsByClassName("input-container")[0];
-        // container.innerHTML= "";
-        // console.log("hey")
+        let container = document.getElementsByClassName("input-container")[0];
+        container.innerHTML= "";
+        //1-console.log("hey");
+        console.log(count);
+        count=0;
+        console.log(count);
     } else {
         alert("Fill all form")
     }
@@ -79,7 +82,7 @@ function dateOfBirth(count) {
         // dob[count].nextElementSibling.style.display="none";
         return getAge;
     } else {
-        console.log(dob[count].nextElementSibling)
+        //1-console.log(dob[count].nextElementSibling)
         dob[count].nextElementSibling.style.display="block";
         dob[count].nextElementSibling.innerHTML="Don't Enter Future value";
     }
@@ -253,7 +256,7 @@ function insertDataTable(array) {
     table.style.display = "table";
     let arr = array;
     for (let i = 0; i < arr.length; i++) {
-        console.log(array[i])
+        //1-console.log(array[i])
         if (i % 8 == 0) {
             let tr = table.insertRow(1);
             tr.insertCell(0).innerHTML = `${array[i]}`;
