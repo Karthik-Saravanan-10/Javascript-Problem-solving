@@ -227,9 +227,9 @@ function dynamicForm() {
                     <div class="form-input radio-input">
                         <label>Gender</label>
                         <div class="radio">
-                            <input type="radio" name="gender" id="male" class="male" value="male">
+                            <input type="radio" name="gender${count}" id="male" class="male" value="male">
                             <label for="male">Male</label>
-                            <input type="radio" name="gender" id="female" class="female" value="female">
+                            <input type="radio" name="gender${count}" id="female" class="female" value="female">
                             <label for="female">Female</label><br>
                         </div>
                         <p class="indicator"></p>
