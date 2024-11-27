@@ -12,7 +12,7 @@ let details = document.getElementsByClassName("textarea");
 let submitBtn = document.getElementById("submit");
 let table = document.querySelector("table");
 let Emailpattern = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
-let Namepattern=/[a-zA-Z]$/;
+let Namepattern = /[a-zA-Z]$/;
 let dataArray = [];
 let count = 0;
 
@@ -31,7 +31,6 @@ form.addEventListener("input", (e) => {
         // dob[count].setAttribute("value", dob[count].value);
         // age[count].setAttribute("value", age[count].value);
         // details[count].innerHTML = details[count].value;
-        dataPush(count);
         submitBtn.style.display = "block";
     }
 })
@@ -41,23 +40,27 @@ form.addEventListener("input", (e) => {
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!vskForm(count)) {
+        dataPush(count);
         insertDataTable(dataArray);
         dataArray = [];
         form.reset();
         addbtn[count].classList.add("disabled");
         addbtn[count].removeAttribute("onclick", "dynamicForm()");
         let container = document.getElementsByClassName("input-container")[0];
-        container.innerHTML= "";
+        container.innerHTML = "";
         //1-console.log("hey");
         console.log(count);
-        count=0;
+        count = 0;
         console.log(count);
     } else {
         alert("Fill all form")
     }
 })
 
-function vskForm(count) {   
+function vskForm(count) {
+    let kk = ((!name[count].value) || (!role[count].value) || (!email[count].value)||(!dob[count].value)||(!age[count].value)||
+             ((!details[count].value)||(details[count].value.length < 10))||(!checkGender(count)));
+
     let vsk = ((name[count].value == "") || (name[count].value == undefined)) ||
         ((role[count].value == "")) ||
         ((email[count].value == "") || (email[count].value == undefined)) ||
@@ -83,8 +86,8 @@ function dateOfBirth(count) {
         return getAge;
     } else {
         //1-console.log(dob[count].nextElementSibling)
-        dob[count].nextElementSibling.style.display="block";
-        dob[count].nextElementSibling.innerHTML="Don't Enter Future value";
+        dob[count].nextElementSibling.style.display = "block";
+        dob[count].nextElementSibling.innerHTML = "Don't Enter Future value";
     }
 }
 
@@ -107,7 +110,7 @@ function checkName(val) {
     if (val.value == "" || val.value == undefined) {
         val.nextElementSibling.style.display = "block";
         val.nextElementSibling.innerHTML = "Fill the Form";
-    }else if(!(Namepattern.test(val.value))){
+    } else if (!(Namepattern.test(val.value))) {
         val.nextElementSibling.style.display = "block";
         val.nextElementSibling.innerHTML = "Use only Alphabets";
     }
@@ -122,7 +125,7 @@ function checkRole(val) {
     if (val.value == "" || val.value == undefined) {
         val.nextElementSibling.style.display = "block";
         val.nextElementSibling.innerHTML = "Fill the Form";
-    }else {
+    } else {
         val.nextElementSibling.style.display = "none";
         val.nextElementSibling.innerHTML = "";
     }
@@ -170,7 +173,10 @@ function checkGender(count) {
 }
 
 function dynamicForm() {
-    addbtn[count].style.display = "none";
+    //addbtn[count].style.display = "none";
+    addbtn[count].classList.add("disabled");
+    addbtn[count].removeAttribute("onclick", "dynamicForm()");
+    dataPush(count);
     count = count + 1;
     let container = document.getElementsByClassName("input-container")[0];
     container.innerHTML += `
